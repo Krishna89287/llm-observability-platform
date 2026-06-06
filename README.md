@@ -10,39 +10,26 @@ Production observability for LLM applications — cost, latency, quality, halluc
 **Stack:** Python · Prometheus · Grafana · OpenTelemetry · FastAPI · PostgreSQL
 
 
+
+![Demo](docs/demo.svg)
+
 ## Architecture
 
-```
-LLM Application
-    │
-    ▼
-┌─────────────────────────────────┐
-│          LLM Monitor             │
-│   Records every API call        │
-│   Cost · Latency · Tokens       │
-└─────────────────────────────────┘
-    │
-    ├─────────────┬──────────────┐
-    ▼             ▼              ▼
-┌────────┐  ┌─────────┐  ┌──────────┐
-│  Cost  │  │ Quality │  │ Tracer   │
-│ Calc   │  │ Scorer  │  │ OpenTel  │
-│GPT/Claud│  │Coherence│  │Spans·    │
-│Pricing │  │Safety   │  │Events    │
-└────────┘  └─────────┘  └──────────┘
-    │
-    ▼
-┌─────────────────────────────────┐
-│        Alert Engine              │
-│  Latency > 5s → Alert          │
-│  Cost > $0.10 → Alert          │
-│  Quality < 0.7 → Alert         │
-└─────────────────────────────────┘
-    │
-    ▼
-Prometheus → Grafana Dashboard
-```
+![Architecture](docs/architecture.svg)
 
+## Why This Project Exists
+
+Most teams ship AI features and then find out something is wrong from a user. This platform turns that around — catching issues before users see them.
+
+The three metrics that matter most in production LLM systems:
+
+**Cost** — LLM API costs are invisible until they are not. A single prompt change that increases token usage by 2x doubles your monthly bill. Per-request cost tracking with per-model breakdown makes this visible in real time rather than at the end of the billing cycle.
+
+**Latency** — average latency is misleading. P99 latency is what users experience on bad days. The platform tracks latency distributions per model and alerts when P99 crosses the threshold, not when average latency does.
+
+**Quality** — automated coherence, completeness, and safety scoring for every response. Quality degradation is the hardest problem to catch because it does not show up in error logs — it shows up in users quietly stopping using the product.
+
+All three metrics feed into Prometheus so they appear on the same Grafana dashboards as the rest of your infrastructure observability.
 
 
 ## Demo

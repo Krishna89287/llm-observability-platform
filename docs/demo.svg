@@ -1,0 +1,20 @@
+<svg width="780" height="328" viewBox="0 0 780 328" xmlns="http://www.w3.org/2000/svg">
+<rect width="780" height="328" rx="10" fill="#282A36"/>
+<rect width="780" height="36" rx="10" fill="#21222C"/>
+<rect x="0" y="26" width="780" height="10" fill="#21222C"/>
+<circle cx="18" cy="18" r="6" fill="#FF5555"/>
+<circle cx="38" cy="18" r="6" fill="#FFB86C"/>
+<circle cx="58" cy="18" r="6" fill="#50FA7B"/>
+<text x="390" y="23" text-anchor="middle" fill="#6272A4" font-family="monospace" font-size="12">llm-observability-platform</text>
+<text x="18" y="58" font-family="monospace" font-size="13" fill="#50FA7B">$ python monitoring/platform.py</text>
+<text x="18" y="78" font-family="monospace" font-size="13" fill="#50FA7B">  LLM Observability Platform  |  recording...</text>
+<text x="18" y="104" font-family="monospace" font-size="13" fill="#50FA7B">  gpt-4          1200ms  $0.0042  quality=0.91</text>
+<text x="18" y="124" font-family="monospace" font-size="13" fill="#50FA7B">  claude-sonnet   890ms  $0.0018  quality=0.88</text>
+<text x="18" y="144" font-family="monospace" font-size="13" fill="#50FA7B">  gpt-3.5-turbo   340ms  $0.0003  quality=0.79</text>
+<text x="18" y="164" font-family="monospace" font-size="13" fill="#FFB86C">  gpt-4          5240ms  ALERT: latency over 5s</text>
+<text x="18" y="184" font-family="monospace" font-size="13" fill="#50FA7B">  claude-haiku    280ms  $0.0002  quality=0.82</text>
+<text x="18" y="210" font-family="monospace" font-size="13" fill="#F8F8F2">  total cost:   $0.0154</text>
+<text x="18" y="230" font-family="monospace" font-size="13" fill="#F8F8F2">  p99 latency:  5240ms</text>
+<text x="18" y="250" font-family="monospace" font-size="13" fill="#F8F8F2">  avg quality:  0.86</text>
+<text x="18" y="270" font-family="monospace" font-size="13" fill="#FFB86C">  open alerts:  1  (high latency gpt-4)</text>
+</svg>

@@ -1,0 +1,22 @@
+{
+  "calls": 60,
+  "total_cost_usd": 0.3444,
+  "avg_latency_ms": 1036.5,
+  "p95_latency_ms": 1723.0,
+  "total_tokens": 78099,
+  "avg_faithfulness": 0.854,
+  "by_model": {
+    "gpt-4o": {
+      "calls": 19,
+      "cost_usd": 0.1209
+    },
+    "llama-3.3-70b": {
+      "calls": 18,
+      "cost_usd": 0.0146
+    },
+    "claude-sonnet": {
+      "calls": 23,
+      "cost_usd": 0.2086
+    }
+  }
+}

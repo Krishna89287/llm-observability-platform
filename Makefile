@@ -1,16 +1,7 @@
-.PHONY: install test lint clean run
-
+.PHONY: install run test
 install:
 	pip install -r requirements.txt
-
-test:
-	pytest tests/ -v --tb=short
-
 run:
-	python monitoring/llm_monitor.py
-
-lint:
-	flake8 . --max-line-length=120 --exclude=.venv
-
-clean:
-	find . -type d -name __pycache__ -exec rm -rf {} +
+	uvicorn app.main:app --reload --port 8070
+test:
+	pytest -q

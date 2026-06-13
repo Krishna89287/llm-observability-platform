@@ -1,33 +1,48 @@
-# llm-observability-platform
+# LLM Observability Platform
 
-> Know what your LLMs are doing and what they're costing
+Logs a trace for every LLM call (model, tokens, latency, answer quality), estimates
+cost from token counts, and exposes a dashboard of cost, latency percentiles, token
+usage and faithfulness, plus Prometheus metrics for alerting.
 
-[![Python](https://img.shields.io/badge/python-3.11+-blue?style=flat-square)](https://python.org)
-[![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
-[![Build](https://img.shields.io/github/actions/workflow/status/Krishna89287/llm-observability-platform/daily-commit.yml?style=flat-square)](https://github.com/Krishna89287/llm-observability-platform/actions)
+## Why it is useful for companies
+Once an LLM feature ships, the questions are immediate: what is it costing, how slow
+is it, and are answers staying accurate. This turns those into tracked numbers per
+model, so teams can control spend, catch latency regressions, and watch quality,
+rather than flying blind.
 
-Average latency is a lie. It looks fine right up until P99 is 12 seconds and users are refreshing the page.
+## What it does
+- Records a trace per call and estimates cost from a per-model price table
+- Dashboard: total cost, average and p95 latency, total tokens, average faithfulness, cost by model
+- Prometheus metrics for calls and latency
 
-This platform tracks the three metrics that actually matter for LLM applications: cost per request broken down by model, P99 latency rather than average, and response quality scores for every request. When something crosses a threshold you find out immediately rather than from a support ticket.
-
-All metrics feed into Prometheus so they sit alongside the rest of your infrastructure observability.
-
-## What it looks like running
-
-![demo](docs/demo.svg)
-
-## Getting started
-
+## Quickstart
 ```bash
-git clone https://github.com/Krishna89287/llm-observability-platform
-cd llm-observability-platform
-pip install -r requirements.txt
-cp .env.example .env
-python monitoring/platform.py
+make install
+make run     # http://localhost:8070
+curl -s -X POST localhost:8070/trace -H "content-type: application/json" \
+  -d '{"model":"gpt-4o","input_tokens":500,"output_tokens":200,"latency_ms":800,"faithfulness":0.9}'
+curl -s localhost:8070/dashboard | python3 -m json.tool
 ```
 
-**Stack:** Python · Prometheus · Grafana · OpenTelemetry · Langfuse · FastAPI
+## Stack
+Python, FastAPI, in-memory trace store, cost model, Prometheus, Docker, GitHub Actions CI, Pytest.
 
----
+## License
+MIT
 
-Built by [Krishna Gove](https://github.com/Krishna89287) — working on AI and cloud infrastructure in Munich.
+## Workflow diagram
+
+```mermaid
+flowchart LR
+  L[LLM call] --> T[Record trace]
+  T --> C[Estimate cost]
+  C --> S[Store]
+  S --> D[Dashboard: cost, latency, tokens, quality]
+  S --> P[Prometheus metrics + alerts]
+```
+
+## Dashboard output
+
+![Cost by model and latency](assets/dashboard.png)
+
+A real dashboard snapshot is in [examples/sample_output.json](examples/sample_output.json).
